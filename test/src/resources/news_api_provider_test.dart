@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 import 'package:http/http.dart';
 
 void main() {
-  test('FetchTopIds retirns a list of Top story ids', () async {
+  test('FetchTopIds returns a list of Top story ids', () async {
     // Setup of test case
     final newsApiProvider = NewsApiProvider();
     newsApiProvider.client = MockClient((request) async {
@@ -17,7 +17,7 @@ void main() {
     expect(ids, [1, 2, 3, 4]);
   });
 
-  test('FetchItem return an ItemModel', () async {
+  test('FetchItem returns an ItemModel', () async {
     final newsApiProvider = NewsApiProvider();
     newsApiProvider.client = MockClient((request) async {
       final jsonMap = {'id': 123};
