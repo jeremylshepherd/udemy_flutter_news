@@ -15,10 +15,9 @@ class Repository {
   List<Cache> caches = <Cache>[
     newsDbProvider,
   ];
-  // final NewsDbProvider _dbProvider = NewsDbProvider();
-  // final Source _apiProvider = NewsApiProvider();
 
   Future<List<int>> fetchTopIds() {
+    print('_repo fetchTopsIds called');
     return sources[1].fetchTopIds();
   }
 

@@ -42,6 +42,7 @@ class NewsDbProvider implements Source, Cache {
 
   @override
   Future<List<int>> fetchTopIds() {
+    print('bs implementation');
     return Future.value([1, 2, 3]);
   }
 
