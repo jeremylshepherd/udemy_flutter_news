@@ -12,23 +12,23 @@ class ItemModel {
   final List<dynamic> kids;
   final String url;
   final int score;
-  final String? title;
+  final String title;
   final int descendants;
 
   ItemModel.fromJson(Map<String, dynamic> parsedJson)
       : id = parsedJson['id'],
-        deleted = parsedJson['deleted'],
-        type = parsedJson['type'],
-        by = parsedJson['by'],
-        time = parsedJson['time'],
-        text = parsedJson['text'],
-        dead = parsedJson['dead'],
-        parent = parsedJson[''],
-        kids = parsedJson['parent'],
-        url = parsedJson['url'],
-        score = parsedJson['score'],
-        title = parsedJson['title'],
-        descendants = parsedJson['descendants'];
+        deleted = parsedJson['deleted'] ?? false,
+        type = parsedJson['type'] ?? '',
+        by = parsedJson['by'] ?? '',
+        time = parsedJson['time'] ?? -1,
+        text = parsedJson['text'] ?? '',
+        dead = parsedJson['dead'] ?? false,
+        parent = parsedJson['parent'] ?? -1,
+        kids = parsedJson['kids'] ?? [],
+        url = parsedJson['url'] ?? '',
+        score = parsedJson['score'] ?? -1,
+        title = parsedJson['title'] ?? '',
+        descendants = parsedJson['descendants'] ?? -1;
 
   ItemModel.fromDb(Map<String, dynamic> parsedJson)
       : id = parsedJson['id'],
@@ -38,8 +38,8 @@ class ItemModel {
         time = parsedJson['time'],
         text = parsedJson['text'],
         dead = parsedJson['dead'] == 1,
-        parent = parsedJson[''],
-        kids = jsonDecode(parsedJson['parent']),
+        parent = parsedJson['parent'],
+        kids = jsonDecode(parsedJson['kids']),
         url = parsedJson['url'],
         score = parsedJson['score'],
         title = parsedJson['title'],
@@ -48,18 +48,39 @@ class ItemModel {
   Map<String, dynamic> toMapForDb() {
     return <String, dynamic>{
       "id": id,
-      "deleted": deleted ? 1 : 0,
       "type": type,
       "by": by,
       "time": time,
       "text": text,
-      "dead": dead ? 1 : 0,
       "parent": parent,
       "kids": jsonEncode(kids),
+      "dead": dead ? 1 : 0,
+      "deleted": deleted ? 1 : 0,
       "url": url,
       "score": score,
       "title": title,
       "descendants": descendants,
     };
+  }
+
+  @override
+  String toString() {
+    return ''' 
+      {
+        id: $id,
+        type: $type,
+        by: $by,
+        time: $time,
+        text: $text,
+        parent: $parent,
+        kids: $kids,
+        dead: $dead,
+        deleted: $deleted,
+        url: $url,
+        score:$score,
+        title:$title,
+        descendants: $descendants
+      }
+    ''';
   }
 }

@@ -11,7 +11,6 @@ class NewsApiProvider implements Source {
 
   @override
   Future<List<int>> fetchTopIds() async {
-    print('api_FetchTopIds called.');
     final response = await client.get(Uri.parse('$_root/topstories.json'));
     final ids = json.decode(response.body);
 
@@ -20,9 +19,8 @@ class NewsApiProvider implements Source {
 
   @override
   Future<ItemModel?> fetchItem(int id) async {
-    final response = await client.get(Uri.parse('$_root/item/$id'));
+    final response = await client.get(Uri.parse('$_root/item/$id.json'));
     final parsedJson = json.decode(response.body);
-
     return ItemModel.fromJson(parsedJson);
   }
 }

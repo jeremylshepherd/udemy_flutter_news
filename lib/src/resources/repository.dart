@@ -17,26 +17,34 @@ class Repository {
   ];
 
   Future<List<int>> fetchTopIds() {
-    print('_repo fetchTopsIds called');
     return sources[1].fetchTopIds();
   }
 
-  Future<ItemModel?> fetchItem(int id) async {
-    ItemModel? item;
+  Future<ItemModel> fetchItem(int id) async {
+    ItemModel item;
+    ItemModel? fetched;
     Source source;
 
     for (source in sources) {
-      item = await source.fetchItem(id);
-      if (item != null) {
+      fetched = await source.fetchItem(id);
+      if (fetched != null) {
         break;
       }
     }
 
     for (var cache in caches) {
-      if (item != null) {
-        cache.addItem(item);
+      if (fetched != null) {
+        cache.addItem(fetched);
       }
     }
+
+    item = fetched!;
     return item;
+  }
+
+  clearCache() async {
+    for (var cache in caches) {
+      await cache.clear();
+    }
   }
 }
