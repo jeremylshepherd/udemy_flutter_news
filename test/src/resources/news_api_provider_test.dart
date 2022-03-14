@@ -26,6 +26,6 @@ void main() {
 
     final itemModel = await newsApiProvider.fetchItem(999);
     // Expectation
-    expect(itemModel.id, 123);
+    expect(itemModel?.id, 123);
   });
 }

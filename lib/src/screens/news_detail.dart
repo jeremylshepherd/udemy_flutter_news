@@ -31,8 +31,9 @@ class NewsDetail extends StatelessWidget {
           builder: (context, AsyncSnapshot<ItemModel> itemSnapshot) {
             if (!snapshot.hasData) {
               return const Text('Also loading');
+            } else {
+              return _buildList(itemSnapshot.data!, snapshot.data!);
             }
-            return _buildList(itemSnapshot.data!, snapshot.data!);
           },
         );
       },
@@ -57,7 +58,11 @@ class NewsDetail extends StatelessWidget {
 
   Widget _buildList(ItemModel item, Map<int, Future<ItemModel>> itemMap) {
     final commentsList = item.kids.map((kidId) {
-      return Comment(commentId: kidId, itemMap: itemMap);
+      return Comment(
+        commentId: kidId,
+        itemMap: itemMap,
+        depth: 1,
+      );
     }).toList();
     return ListView(
       children: [_buildTitle(item), ...commentsList],
